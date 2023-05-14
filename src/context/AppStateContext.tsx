@@ -1,8 +1,10 @@
 import { createContext, Dispatch } from 'react';
 import { AppState, List, Task } from '../reducers/appStateReducer';
 import { Action } from '../reducers/action/action'; 
+import { DragItem } from '../helper/DragItem';
 
 export const appData: AppState = {
+    draggedItem: null,
     lists: [
         {
           id: "0",
@@ -23,6 +25,7 @@ export const appData: AppState = {
 };
 
 type AppStateContextProps = {
+    draggedItem: DragItem | null;
     lists: List[];
     getTasksByListId(id: string): Task[];
     dispatch: Dispatch<Action>;
