@@ -3,6 +3,7 @@ import { ColumnContainer, ColumnTitle } from "./ColumnContainer";
 import AddNewItem from '../AddItem/AddItem';
 import { useAppState } from '../../hooks/useAppState';
 import { useItemDrag } from '../../hooks/useItemDrag';
+import { isHidden } from '../../helper/isHidden';
 import Card from '../Card/Card';
 
 import { moveList, addTask } from '../../reducers/action/action';
@@ -12,9 +13,10 @@ import { throttle } from 'throttle-debounce-ts';
 type ColumnProps = {
     text: string;
     id: string;
+    isPreview?: boolean; 
 }
 
-const Column = ({ id, text }: ColumnProps) => {
+const Column = ({ id, text, isPreview }: ColumnProps) => {
   const { draggedItem ,getTasksByListId, dispatch } = useAppState();
   const tasks = getTasksByListId(id);
   const ref = useRef<HTMLDivElement>(null);
@@ -38,8 +40,8 @@ const Column = ({ id, text }: ColumnProps) => {
 
   drag(drop(ref));
 
-  return (
-    <ColumnContainer ref={ref}>
+  return ( 
+    <ColumnContainer ref={ref} isPreview={isPreview}  isHidden={isHidden(draggedItem, "COLUMN", id, isPreview)}>
         <ColumnTitle>{text}</ColumnTitle>
         { 
           tasks.map((task) => (

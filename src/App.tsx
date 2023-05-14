@@ -4,6 +4,7 @@ import AddNewItem from './Components/AddItem/AddItem';
 import { useAppState } from './hooks/useAppState';
 
 import { addList } from './reducers/action/action';
+import { CustomDragLayer } from './Components/Drag/CustomDrag/CustomDragLayer';
 
 
 // import tasks from './data/tasks';
@@ -34,6 +35,7 @@ const App: FC= ()  =>  {
 
   return (
     <AppContainer>
+      <CustomDragLayer/>
       {lists.map((list) => (
         <Column text={list.text} key={list.id} id={list.id} />
       ))}
